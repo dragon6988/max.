@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Choose Resolution</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			margin: 0;
+			padding: 0;
+			background-color: #1d1f1f;
+		}
+		h2 {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			margin-top: 60px;
+			font-size: 38px;
+			color: #e70000;
+		}
+		form {
+            background-color: rgb(255, 255, 255);
+			margin-top: 10px;
+            background-position: 0cap;
+			display: inline-block;
+		}
+		input[type="text"] {
+			padding: 10px;
+			width: 400px;
+			border: none;
+			border-radius: px;
+			font-size: 18px;
+			margin-right: 10px;
+		}
+		button {
+			padding: 10px 20px;
+			border: none;
+			background-color: #333;
+			color: #fff;
+			font-size: 18px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		button:hover {
+			background-color: #ca0000;
+		}
+	</style>
+</head>
+<body>
+	<h2>Choose Resolution</h2>
+	<form method="POST" action="{{ url_for('download_video') }}">
+        <div class="card my-4 mx-auto" style="max-width: 1300px;">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="{{url.thumbnail_url}}" class="card-img" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <p class="card-text">
+                    <div class="col-md-3">
+                      <select name="itag" class="form-select input-sm" aria-label="Default select example">
+                          {% for i in url.streams.filter(progressive=True) %}
+                              <option value="{{ i.itag }} mt-3"> {{ i.resolution }} </option>
+                          {% endfor %}
+                      </select>
+                    </div>
+                    <button style="background-color: rgb(226, 39, 39);"type="submit" class="btn btn-danger mt-3" id = "download_btn mt-3">
+                      Download
+                    </button>
+                    <button class="btn btn-danger mt-3" type="button" style="display: none" id = "loading_btn" disabled>
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Loading...
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+    </form>
+</body>
+</html>
